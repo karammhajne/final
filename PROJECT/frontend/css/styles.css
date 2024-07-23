@@ -601,7 +601,7 @@ button[type="button"].submit:hover {
     cursor: pointer;
 }
 
-.main-content {
+.main-content-find {
     margin-top: 150px; /* Adjust this value if needed */
     display: flex;
     flex-direction: column;

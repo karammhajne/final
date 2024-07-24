@@ -7,13 +7,14 @@ body {
     margin-top: 0px;
     margin-left: 500px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .top-header {
     position: fixed;
     height: 123px;
     width: 360px;
-    margin-left: 0px;
     align-items: center;
     z-index: 1000;
     justify-content: space-between;
@@ -22,17 +23,11 @@ body {
 }
 
 .top-header .menu {
-    margin-left: 490px;
     display: flex;
     align-items: center;
 }
 
-.top-header .menu .san {
-    margin-left: -500px;
-    font-size: 18px;
-    cursor: pointer;
-}
-
+.top-header .menu .san,
 .top-header .menu .ring {
     margin-left: 10px;
     font-size: 18px;
@@ -104,8 +99,8 @@ body {
 
 .container-detail {
     margin-top: 120px;
-    width: 110%;
-    margin-left: 50px;
+    width: 100%;
+    margin-left: 100px;
     font-size: 16px;
 }
 
@@ -137,11 +132,10 @@ body {
     list-style-type: none;
     padding: 0px;
     margin: 0px;
-    overflow-y: auto; 
+    overflow-y: auto;
     overflow-x: hidden;
-    max-height: 477px; 
+    max-height: 477px;
 }
-
 
 #report-list li {
     width: 380px;
@@ -331,8 +325,8 @@ button {
 
 .h3 {
     display: absolute;
-    margin-top: 23px;
-    margin-left: -190px;
+    margin-top: 20px;
+    margin-left: -170px;
     text-align: center;
 }
 
@@ -568,30 +562,54 @@ button[type="button"].submit:hover {
     align-items: center;
     cursor: pointer;
 }
+
 .input-container {
-    display: flex;
+    position: relative;
+    margin-left: 100px;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
 }
 
-.input-container img {
+.image-wrapper {
+    margin-top: 250px;
+    position: relative;
+    display: inline-block;
+}
+
+.image-wrapper img {
     width: 215px;
     height: 50px;
 }
 
 .plate-input {
-    width: 215px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 30px;
+    width: 170px;
     height: 50px;
     border: none;
+    margin-left: 45px;
     background-color: transparent;
     font-size: 16px;
     padding: 10px;
+    box-sizing: border-box;
+    z-index: 1; 
 }
 
-.find-car-button, .report-history-button {
-    width: 200px;
+.find-car-button {
+    position: flex;
+    width: 90px;
+    height: 30px;
+    margin-top: 70px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.report-history-button {
+    width: 215px;
     height: 50px;
     margin-top: 20px;
     background-color: #ccc;
@@ -601,9 +619,58 @@ button[type="button"].submit:hover {
     cursor: pointer;
 }
 
-.main-content-find {
-    margin-top: 150px; /* Adjust this value if needed */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Media Queries for Responsiveness */
+@media (max-width: 640px) {
+    body {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .top-header {
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .top-header .menu {
+        margin-left: 0;
+        justify-content: center;
+    }
+
+    .logo img {
+        margin-left: 0;
+    }
+
+    .top-header .profile {
+        margin-left: 0;
+    }
+
+    .container,
+    .container-detail,
+    .rect,
+    .map img,
+    .car-container {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .rec,
+    .volunteer-updates {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .add-car-button {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .image-wrapper img,
+    .plate-input,
+    .find-car-button,
+    .report-history-button {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+    }
 }

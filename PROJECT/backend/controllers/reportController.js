@@ -1,27 +1,28 @@
-const db = require('../models/db');
+const pool = require('../models/db');
 
-exports.getAllReports = (req, res) => {
-    const sql = 'SELECT * FROM tbl_115_reports';
-    db.query(sql, (err, results) => {
+exports.getReports = (req, res) => {
+    const userID = req.user.id;
+    pool.query('SELECT * FROM tbl_115_reports WHERE userID = ?', [userID], (err, results) => {
         if (err) throw err;
         res.json(results);
     });
 };
 
-exports.createReport = (req, res) => {
-    const newReport = req.body;
-    const sql = 'INSERT INTO tbl_115_reports SET ?';
-    db.query(sql, newReport, (err, result) => {
+exports.getReportById = (req, res) => {
+    const { id } = req.params;
+    pool.query('SELECT * FROM tbl_115_reports WHERE reportID = ?', [id], (err, results) => {
         if (err) throw err;
-        res.json({ reportID: result.insertId, ...newReport });
+        res.json(results[0]);
     });
 };
 
-exports.deleteReport = (req, res) => {
-    const { reportID } = req.params;
-    const sql = 'DELETE FROM tbl_115_reports WHERE reportID = ?';
-    db.query(sql, reportID, (err, result) => {
+exports.addReport = (req, res) => {
+    const userID = req.user.id;
+    const { plate, reason, location, date, status, urgent, img, map } = req.body;
+    const newReport = { plate, reason, location, date, status, urgent, img, map, userID };
+
+    pool.query('INSERT INTO tbl_115_reports SET ?', newReport, (err, result) => {
         if (err) throw err;
-        res.json({ message: 'Report deleted', reportID });
+        res.json({ reportID: result.insertId, ...newReport });
     });
 };

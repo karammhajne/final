@@ -1,27 +1,32 @@
-const db = require('../models/db');
+const pool = require('../models/db');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-exports.getAllUsers = (req, res) => {
-    const sql = 'SELECT * FROM tbl_115_users';
-    db.query(sql, (err, results) => {
-        if (err) throw err;
-        res.json(results);
-    });
-};
+exports.registerUser = async (req, res) => {
+    const { firstName, lastName, email, password, address, img, cars = [] } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = { firstName, lastName, email, password: hashedPassword, address, img };
 
-exports.createUser = (req, res) => {
-    const newUser = req.body;
-    const sql = 'INSERT INTO tbl_115_users SET ?';
-    db.query(sql, newUser, (err, result) => {
-        if (err) throw err;
-        res.json({ userID: result.insertId, ...newUser });
-    });
-};
+    pool.query('INSERT INTO tbl_115_users SET ?', newUser, (err, result) => {
+        if (err) {
+            console.error('Error registering user:', err);
+            return res.status(500).send({ message: 'Error registering user' });
+        }
+        const userID = result.insertId;
 
-exports.deleteUser = (req, res) => {
-    const { userID } = req.params;
-    const sql = 'DELETE FROM tbl_115_users WHERE userID = ?';
-    db.query(sql, userID, (err, result) => {
-        if (err) throw err;
-        res.json({ message: 'User deleted', userID });
+        if (cars.length > 0) {
+            cars.forEach(car => {
+                const newCar = { ...car, userID };
+                pool.query('INSERT INTO tbl_115_cars SET ?', newCar, (err) => {
+                    if (err) {
+                        console.error('Error adding car:', err);
+                        return res.status(500).send({ message: 'Error adding car' });
+                    }
+                });
+            });
+        }
+
+        const token = jwt.sign({ id: userID }, 'your_secret_key');
+        res.header('Authorization', `Bearer ${token}`).send({ token, message: 'Registration successful' });
     });
 };

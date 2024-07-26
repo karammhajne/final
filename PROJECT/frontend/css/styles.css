@@ -5,7 +5,7 @@ body {
     background-color: #e0dede;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-top: 0px;
-    margin-left: 500px;
+    margin-left: 550px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -504,12 +504,13 @@ button[type="button"].submit:hover {
     color: #333;
 }
 
-.map img {
-    width: 400px;
+.map #map {
     height: 500px;
+    width: 400px;
     margin-left: 0px;
     margin-top: 125px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 0;
 }
 
 .report-button {
@@ -524,6 +525,7 @@ button[type="button"].submit:hover {
     text-align: center;
     font-size: 16px;
     cursor: pointer;
+    z-index: 1000;
 }
 
 .volunteer-updates {
@@ -618,6 +620,146 @@ button[type="button"].submit:hover {
     font-size: 16px;
     cursor: pointer;
 }
+.car-info-wrapper {
+    margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.plate-image-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.plate-image-wrapper img {
+    width: 215px;
+    margin-top: 5px;
+    margin-right: 5px;
+    height: 50px;
+    z-index: 1;
+}
+
+.car-plate-number {
+    position: absolute;
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+    z-index: 2;
+}
+
+.car-image-wrapper img {
+    width: 150px;
+    height: 120px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.car-details-wrapper {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.car-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.detail-name {
+    flex: 1;
+    text-align: right;
+    padding-right: 20px;
+    font-weight: bold;
+}
+
+.detail-info {
+    flex: 1;
+    text-align: left;
+}
+
+hr {
+    border: 0;
+    height: 2px;
+    background: #000;
+    margin: 10px 0;
+}
+
+.report-form-modal,
+.location-form-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.report-form-content,
+.location-form-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-popup {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-popup-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.report-action-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
 
 /* Media Queries for Responsiveness */
 @media (max-width: 640px) {
@@ -648,7 +790,7 @@ button[type="button"].submit:hover {
     .container,
     .container-detail,
     .rect,
-    .map img,
+    .map #map,
     .car-container {
         width: 100%;
         margin-left: 0;

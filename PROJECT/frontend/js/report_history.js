@@ -10,7 +10,7 @@ function fetchReportsFromJson() {
         .then(response => response.json())
         .then(data => {
             console.log('Reports fetched:', data);
-            reports = data.reports;
+            reports = data.reports.concat(JSON.parse(localStorage.getItem('reports')) || []);
             displayReports(reports);
         })
         .catch(error => console.error('Error fetching reports:', error));
@@ -62,6 +62,7 @@ function openReportDetails(id) {
 function deleteReportFromHistory(id, event) {
     event.stopPropagation();
     reports = reports.filter(r => r.id !== id);
+    localStorage.setItem('reports', JSON.stringify(reports));
     displayReports(reports);
     console.log(`Deleted report with ID: ${id}`);
 }
@@ -116,12 +117,12 @@ function submitNewReport() {
     const form = document.getElementById("createReportForm");
 
     const newReport = {
-        id: Date.now(), // Unique ID based on timestamp
+        id: Date.now(),
         image: form.image.value,
         plate: form.plate.value,
         reason: form.reason.value,
         location: form.location.value,
-        date: "right now",
+        date: new Date().toISOString().slice(0, 19).replace('T', ' '),
         urgent: form.urgent.checked,
         map: form.map.value
     };
@@ -129,11 +130,10 @@ function submitNewReport() {
     console.log('New report details:', newReport);
 
     reports.push(newReport);
-    console.log('Updated reports:', reports);
+    localStorage.setItem('reports', JSON.stringify(reports));
     displayReports(reports);
     closeCreateReportModal();
 
-    // Scroll to the bottom of the report list
     const reportListElement = document.getElementById("report-list");
     setTimeout(() => {
         reportListElement.scrollTop = reportListElement.scrollHeight;

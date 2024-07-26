@@ -5,16 +5,15 @@ body {
     background-color: #e0dede;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-top: 0px;
-    margin-left: 550px;
+    margin-left: 500px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .top-header {
     position: fixed;
     height: 123px;
     width: 360px;
+    margin-left: 0px;
     align-items: center;
     z-index: 1000;
     justify-content: space-between;
@@ -23,11 +22,17 @@ body {
 }
 
 .top-header .menu {
+    margin-left: 490px;
     display: flex;
     align-items: center;
 }
 
-.top-header .menu .san,
+.top-header .menu .san {
+    margin-left: -500px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
 .top-header .menu .ring {
     margin-left: 10px;
     font-size: 18px;
@@ -99,8 +104,8 @@ body {
 
 .container-detail {
     margin-top: 120px;
-    width: 100%;
-    margin-left: 100px;
+    width: 110%;
+    margin-left: 50px;
     font-size: 16px;
 }
 
@@ -132,10 +137,11 @@ body {
     list-style-type: none;
     padding: 0px;
     margin: 0px;
-    overflow-y: auto;
+    overflow-y: auto; 
     overflow-x: hidden;
-    max-height: 477px;
+    max-height: 477px; 
 }
+
 
 #report-list li {
     width: 380px;
@@ -325,8 +331,8 @@ button {
 
 .h3 {
     display: absolute;
-    margin-top: 20px;
-    margin-left: -170px;
+    margin-top: 23px;
+    margin-left: -190px;
     text-align: center;
 }
 
@@ -504,13 +510,12 @@ button[type="button"].submit:hover {
     color: #333;
 }
 
-.map #map {
-    height: 500px;
+.map img {
     width: 400px;
+    height: 500px;
     margin-left: 0px;
     margin-top: 125px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 0;
 }
 
 .report-button {
@@ -525,7 +530,6 @@ button[type="button"].submit:hover {
     text-align: center;
     font-size: 16px;
     cursor: pointer;
-    z-index: 1000;
 }
 
 .volunteer-updates {
@@ -563,256 +567,4 @@ button[type="button"].submit:hover {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-}
-
-.input-container {
-    position: relative;
-    margin-left: 100px;
-    align-items: center;
-}
-
-.image-wrapper {
-    margin-top: 250px;
-    position: relative;
-    display: inline-block;
-}
-
-.image-wrapper img {
-    width: 215px;
-    height: 50px;
-}
-
-.plate-input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-top: 30px;
-    width: 170px;
-    height: 50px;
-    border: none;
-    margin-left: 45px;
-    background-color: transparent;
-    font-size: 16px;
-    padding: 10px;
-    box-sizing: border-box;
-    z-index: 1; 
-}
-
-.find-car-button {
-    position: flex;
-    width: 90px;
-    height: 30px;
-    margin-top: 70px;
-    background-color: #ccc;
-    border: none;
-    border-radius: 5px;
-    font-size: 12px;
-    cursor: pointer;
-}
-
-.report-history-button {
-    width: 215px;
-    height: 50px;
-    margin-top: 20px;
-    background-color: #ccc;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-}
-.car-info-wrapper {
-    margin-top: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.plate-image-wrapper {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.plate-image-wrapper img {
-    width: 215px;
-    margin-top: 5px;
-    margin-right: 5px;
-    height: 50px;
-    z-index: 1;
-}
-
-.car-plate-number {
-    position: absolute;
-    font-size: 24px;
-    font-weight: bold;
-    color: black;
-    z-index: 2;
-}
-
-.car-image-wrapper img {
-    width: 150px;
-    height: 120px;
-    border-radius: 8px;
-    margin-top: 20px;
-}
-
-.car-details-wrapper {
-    width: 100%;
-    margin-top: 20px;
-}
-
-.car-detail {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px 0;
-}
-
-.detail-name {
-    flex: 1;
-    text-align: right;
-    padding-right: 20px;
-    font-weight: bold;
-}
-
-.detail-info {
-    flex: 1;
-    text-align: left;
-}
-
-hr {
-    border: 0;
-    height: 2px;
-    background: #000;
-    margin: 10px 0;
-}
-
-.report-form-modal,
-.location-form-modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.report-form-content,
-.location-form-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 400px;
-    text-align: center;
-    border-radius: 10px;
-}
-
-.close-button {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close-button:hover,
-.close-button:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-popup {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-popup-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 400px;
-    text-align: center;
-    border-radius: 10px;
-}
-
-.report-action-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-
-
-/* Media Queries for Responsiveness */
-@media (max-width: 640px) {
-    body {
-        width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .top-header {
-        width: 100%;
-        padding: 0 10px;
-    }
-
-    .top-header .menu {
-        margin-left: 0;
-        justify-content: center;
-    }
-
-    .logo img {
-        margin-left: 0;
-    }
-
-    .top-header .profile {
-        margin-left: 0;
-    }
-
-    .container,
-    .container-detail,
-    .rect,
-    .map #map,
-    .car-container {
-        width: 100%;
-        margin-left: 0;
-    }
-
-    .rec,
-    .volunteer-updates {
-        width: 100%;
-        margin-left: 0;
-    }
-
-    .add-car-button {
-        margin-left: 0;
-        margin-top: 20px;
-    }
-
-    .image-wrapper img,
-    .plate-input,
-    .find-car-button,
-    .report-history-button {
-        width: 100%;
-        margin-left: 0;
-        margin-top: 10px;
-    }
 }

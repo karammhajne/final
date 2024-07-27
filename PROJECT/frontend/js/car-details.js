@@ -14,6 +14,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(error => console.error('Error fetching data:', error));
+
+    document.getElementById('make-report-button').addEventListener('click', openReportForm);
+    document.getElementById('close-report-form').addEventListener('click', closeReportForm);
+    document.getElementById('submit-report-reason').addEventListener('click', submitReportReason);
+    document.getElementById('close-location-form').addEventListener('click', closeLocationForm);
+    document.getElementById('submit-location').addEventListener('click', submitLocation);
+    document.getElementById('close-not-found-popup').addEventListener('click', closeModal);
+    document.getElementById('locate-me-button').addEventListener('click', locateMe);
 });
 
 let reportReason = '';
@@ -80,4 +88,35 @@ function submitLocation() {
     localStorage.setItem('reports', JSON.stringify(reports));
     
     window.location.href = 'report_history.html';
+}
+
+function locateMe() {
+    navigator.geolocation.getCurrentPosition(success, error);
+
+    function success(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        const apiKey = `4086e24eac344b50b80b7e6f0b357f6d`;
+        const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.results && data.results.length > 0) {
+                    const components = data.results[0].components;
+                    const location = `${components.road || ''} ${components.house_number || ''}, ${components.city || ''}`;
+                    document.getElementById('report-location').value = location;
+                } else {
+                    console.error('No results found');
+                    alert('Unable to determine location');
+                }
+            })
+            .catch(error => console.error('Error fetching location:', error));
+    }
+
+    function error() {
+        console.error('Unable to retrieve your location');
+        alert('Unable to retrieve your location');
+    }
 }

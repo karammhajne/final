@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.find-car-button').addEventListener('click', findCar);
+
+    document.querySelector('.report-history-button').addEventListener('click', function() {
+        window.location.href = 'report_history.html';
+    });
 });
 
 function findCar() {

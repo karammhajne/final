@@ -10,7 +10,7 @@ function fetchReportsFromJson() {
         .then(response => response.json())
         .then(data => {
             console.log('Reports fetched:', data);
-            reports = data.reports;
+            reports = data.reports.concat(JSON.parse(localStorage.getItem('reports')) || []);
             displayReports(reports);
         })
         .catch(error => console.error('Error fetching reports:', error));
@@ -42,7 +42,7 @@ function displayReports(reportList) {
                     ${report.status === 'call done' ? '<span>✔️</span>' : ''}
                 </div>
             </div>
-            <i class="fa fa-trash" onclick="deleteReportFromHistory(${report.id}, event)"></i>
+            <i class="fa fa-trash" data-id="${report.id}"></i>
         `;
         li.onclick = (event) => {
             if (!event.target.classList.contains('fa-trash')) {
@@ -50,6 +50,13 @@ function displayReports(reportList) {
             }
         };
         reportListElement.appendChild(li);
+    });
+
+    // Add event listeners to the delete buttons
+    document.querySelectorAll('.fa-trash').forEach(button => {
+        button.addEventListener('click', (event) => {
+            deleteReportFromHistory(event.target.dataset.id, event);
+        });
     });
 }
 
@@ -61,83 +68,8 @@ function openReportDetails(id) {
 
 function deleteReportFromHistory(id, event) {
     event.stopPropagation();
-    reports = reports.filter(r => r.id !== id);
+    reports = reports.filter(r => r.id !== parseInt(id));
+    localStorage.setItem('reports', JSON.stringify(reports));
     displayReports(reports);
     console.log(`Deleted report with ID: ${id}`);
-}
-
-function openCreateReportModal() {
-    const modalHTML = `
-        <div id="createReportModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeCreateReportModal()">&times;</span>
-                <h3>Create New Report</h3>
-                <form id="createReportForm">
-                    <label for="image">Image URL:</label>
-                    <input type="text" id="image" name="image" required><br>
-                    <label for="plate">Plate:</label>
-                    <input type="text" id="plate" name="plate" required><br>
-                    <label for="reason">Reason:</label>
-                    <input type="text" id="reason" name="reason" required><br>
-                    <label for="location">Location:</label>
-                    <input type="text" id="location" name="location" required><br>
-                    <label for="urgent">Urgent:</label>
-                    <input type="checkbox" id="urgent" name="urgent"><br>
-                    <label for="map">Map URL:</label>
-                    <input type="text" id="map" name="map" required><br>
-                    <button type="button" onclick="submitNewReport()">Submit</button>
-                </form>
-            </div>
-        </div> 
-    `;
-
-    const body = document.querySelector('body');
-    const existingModal = document.getElementById('createReportModal');
-
-    if (existingModal) {
-        existingModal.remove();
-    }
-
-    body.insertAdjacentHTML('beforeend', modalHTML);
-    const modal = document.getElementById("createReportModal");
-    modal.style.display = "block";
-    body.classList.add('no-fixed-header');
-}
-
-function closeCreateReportModal() {
-    const modal = document.getElementById("createReportModal");
-    modal.style.display = "none";
-    const body = document.querySelector('body');
-    body.classList.remove('no-fixed-header');
-}
-
-function submitNewReport() {
-    console.log('Submitting new report...');
-    const form = document.getElementById("createReportForm");
-
-    const newReport = {
-        id: Date.now(), // Unique ID based on timestamp
-        image: form.image.value,
-        plate: form.plate.value,
-        reason: form.reason.value,
-        location: form.location.value,
-        date: "right now",
-        urgent: form.urgent.checked,
-        map: form.map.value
-    };
-
-    console.log('New report details:', newReport);
-
-    reports.push(newReport);
-    console.log('Updated reports:', reports);
-    displayReports(reports);
-    closeCreateReportModal();
-
-    // Scroll to the bottom of the report list
-    const reportListElement = document.getElementById("report-list");
-    setTimeout(() => {
-        reportListElement.scrollTop = reportListElement.scrollHeight;
-    }, 0);
-
-    console.log('New report submitted:', JSON.stringify(newReport));
 }

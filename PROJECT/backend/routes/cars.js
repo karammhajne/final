@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const carController = require('../controllers/carController');
-const authenticateToken = require('../middleware/authMiddleware');
 
-router.get('/', authenticateToken, carController.getCars);
-router.post('/', authenticateToken, carController.addCar);
+router.get('/user/:userID', carController.getCarsByUser);
+router.post('/', carController.addCar);
+router.delete('/:carID', carController.deleteCar);
 
 module.exports = router;

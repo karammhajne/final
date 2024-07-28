@@ -3,38 +3,25 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const app = express();
-const pool = require('./models/db'); // Ensure this path is correct
+const pool = require('./models/db');
 
 app.use(bodyParser.json());
-app.use(cors({
-    origin: 'http://127.0.0.1:5500'  // or wherever your frontend is hosted
-}));
+app.use(cors());
+app.use(express.json());
 
-// Test database connection
-pool.getConnection((err, connection) => {
-    if (err) {
-        console.error('Error connecting to the database:', err);
-    } else {
-        console.log('Connected to the database');
-        connection.query('SELECT 1 + 1 AS solution', (err, results) => {
-            connection.release();
-            if (err) throw err;
-            console.log('The solution is: ', results[0].solution);
-        });
-    }
-});
-
-app.use(express.static(path.join(__dirname, '../frontend')));
-
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/users');
+const volunteerRoutes = require('./routes/volunteers');
 const carRoutes = require('./routes/cars');
 const reportRoutes = require('./routes/reports');
-const userRoutes = require('./routes/users');
-const authRoutes = require('./routes/auth');
 
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/volunteers', volunteerRoutes);
 app.use('/api/cars', carRoutes);
 app.use('/api/reports', reportRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/auth', authRoutes);
+
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend', 'index.html'));
